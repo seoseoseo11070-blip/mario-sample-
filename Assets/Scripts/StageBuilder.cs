@@ -15,9 +15,9 @@ public class StageBuilder : MonoBehaviour
     // ステージデータ（0=何もない, 1=ブロック, 2=敵, 3=アイテム）
     private readonly int[,] stageData = new int[,]
     {
-        { 1, 1, 1, 1, 1, 1, 1, },
+         { 1, 1, 1, 0, 0, 0, 1, },
         { 1, 1, 1, 0, 0, 0, 1, },
-        { 0, 0, 0, 1, 1, 1, 0, },
+        { 0, 0, 0, 1, 0, 0, 0, },
     };
 
     private void Start()
@@ -63,14 +63,9 @@ public class StageBuilder : MonoBehaviour
                         SpawnObject(itemPrefab, position, "Items");
                         break;
 
-                    default:
-                        Debug.LogWarning($"不明なセルタイプ: {cellType} at ({x},{y})");
-                        break;
                 }
             }
         }
-
-        Debug.Log($"ステージ生成完了： {width}×{height}");
     }
 
     private void SpawnObject(GameObject prefab, Vector3 position, string parentName)
