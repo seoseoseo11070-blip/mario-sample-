@@ -1,58 +1,61 @@
-using Unity.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    private Transform tareget;
+    [Header("追跡対象")]
+    [SerializeField] private Transform target;
 
-    private float smoothSpeed = 5f;
+    [Header("追跡設定")]
+    [SerializeField] private float smoothSpeed = 5f;
+    [SerializeField] private Vector3 offset = new Vector3(0, 2f, 0);
 
-    private Vector3 offset = new Vector3(0, -10);
+    [Header("カメラ制限")]
+    [SerializeField] private bool useBounds = true;
+    [SerializeField] private float minX = 0f;
+    [SerializeField] private float maxX = 100f;
+    [SerializeField] private float minY = 0f;
+    [SerializeField] private float maxY = 10f;
 
-    private bool useBounds = true;
-
-    private float minx = 0f;
-
-    private float maxX = 100f;
-
-    private float minY = 0f;
-
-    private float maxY = 10f;
-
-    void Start()
+    private void Start()
     {
-        if (tareget == null)
+        FindPlayer();
+    }
+
+    private void FindPlayer()
+    {
+        if (target == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
-            {
-                tareget = player.transform;
-            }
+                target = player.transform;
         }
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        if (tareget == null) return;
+        FindPlayer();
+        if (target == null) return;
 
-        Vector3 desiredPosition = tareget.position + offset;
+        Vector3 desiredPosition = target.position + offset;
+        desiredPosition.z = transform.position.z;
 
         if (useBounds)
         {
-            desiredPosition.x = Mathf.Clamp(desiredPosition.x, minx, maxX);
+            desiredPosition.x = Mathf.Clamp(desiredPosition.x, minX, maxX);
             desiredPosition.y = Mathf.Clamp(desiredPosition.y, minY, maxY);
         }
 
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
         transform.position = smoothedPosition;
     }
-    private void OawGizmosSelected()
+
+    private void OnDrawGizmosSelected()
     {
         if (!useBounds) return;
+
         Gizmos.color = Color.cyan;
-        Vector3 center = new Vector3((minx + maxX) / 2, (minY + maxY) / 2, 0);
-        Vector3 size = new Vector3(maxX - minx, maxY - minY, 1);
+        Vector3 center = new Vector3((minX + maxX) / 2, (minY + maxY) / 2, transform.position.z);
+        Vector3 size = new Vector3(maxX - minX, maxY - minY, 1);
         Gizmos.DrawWireCube(center, size);
     }
 }
