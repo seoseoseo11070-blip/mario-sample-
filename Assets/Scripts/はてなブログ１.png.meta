@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5f7e98e5c1d91ef44a9bb830914c5deb
+guid: 6691e6100cecdc940a5055e95bcaaaa0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 602953527300848250
-    second: takara_0
+      213: 7983865986964265724
+    second: "\u306F\u3066\u306A\u30D6\u30ED\u30B0\uFF11_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: takara_0
+      name: "\u306F\u3066\u306A\u30D6\u30ED\u30B0\uFF11_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 992
+        height: 992
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7af5dad90f1e5800800000000000000
-      internalID: 602953527300848250
+      spriteID: cfa145790d36cce60800000000000000
+      internalID: 7983865986964265724
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      takara_0: 602953527300848250
+      "\u306F\u3066\u306A\u30D6\u30ED\u30B0\uFF11_0": 7983865986964265724
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
