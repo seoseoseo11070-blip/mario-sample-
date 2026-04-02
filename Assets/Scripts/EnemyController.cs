@@ -49,11 +49,11 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        // if (GameManager.Instance != unll && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
-        // {
-        //     rb.linearVelocity = Vector2.zero;
-        //     return;
-        // }
+        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         if (usePatrol)
         {
             Patrol();
