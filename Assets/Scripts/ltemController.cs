@@ -48,21 +48,21 @@ public class ltemController : MonoBehaviour
 
         elapsedTime += Time.deltaTime;
 
-        if (useFloatAnimation)
-        {
-            FloatAnimation();
-        }
+        // if (useFloatAnimation)
+        // {
+        //     FloatAnimation();
+        // }
         if (useRotation)
         {
             RotateAnimation();
         }
     }
 
-    private void FloatAnimation()
-    {
-        float newY = startPosition.y + Mathf.Sin(elapsedTime * floatSpeed) * floatAmount;
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
-    }
+    // private void FloatAnimation()
+    // {
+    //     float newY = startPosition.y + Mathf.Sin(elapsedTime * floatSpeed) * floatAmount;
+    //     transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+    // }
     private void RotateAnimation()
     {
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
