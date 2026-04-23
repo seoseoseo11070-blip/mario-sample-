@@ -1,3 +1,4 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -102,7 +103,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OGizmosSelected()
+    protected void OGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Vector3 pos = Application.isPlaying ? startPosition : transform.position;
@@ -112,6 +113,29 @@ public class EnemyController : MonoBehaviour
         Vector3 wallCheckPos = wallCheck != null ? wallCheck.position : transform.position;
         float dir = Application.isPlaying ? currentDirection : (moveRight ? 1f : -1f);
         Gizmos.DrawRay(wallCheckPos, Vector3.right * dir * wallCheckDistance);
+    }
+
+    // private void OnStomped()
+    // {
+    //     rb.linearVelocity = Vector2.zero;
+    //     GetComponent<BoxCollider2D>().enabled = false;
+    //     transform.localScale = new Vector3(transform.lossyScale.x, transform.localScale.y * 0.3f, transform.localScale.z);
+    //     Destroy(gameObject, 0.3f);
+    // }
+
+    public void OnStomped()
+    {
+        rb.linearVelocity = Vector2.zero;
+
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        transform.localScale = new Vector3(
+            transform.localScale.x,
+            transform.localScale.y * 0.3f,
+            transform.localScale.z
+        );
+
+        Destroy(gameObject, 0.3f);
     }
 }
 
