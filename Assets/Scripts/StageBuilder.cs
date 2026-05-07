@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class StageBuilder : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject movingPlatformPrefab;
     [Header("=== ステージ設定 ===")]
     [SerializeField] private float blockSize = 1f;
     [SerializeField] private Vector2 stageOffset = Vector2.zero;
@@ -20,8 +22,8 @@ public class StageBuilder : MonoBehaviour
        { 3, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0 },
        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-       { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-       { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+       { 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+       { 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 4, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
     };
 
     private void Start()
@@ -61,6 +63,16 @@ public class StageBuilder : MonoBehaviour
                         break;
                     case 3:
                         SpawnObject(itemPrefab, position, "Items");
+                        break;
+                    case 4:
+                        if (movingPlatformPrefab != null)
+                        {
+                            GameObject platform = Instantiate(movingPlatformPrefab, position, Quaternion.identity, transform);
+                            if (platform.GetComponent<MovingPlatform>() == null)
+                            {
+                                platform.AddComponent<MovingPlatform>();
+                            }
+                        }
                         break;
                 }
             }

@@ -227,12 +227,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 2125135728}
   smoothSpeed: 0.5
-  offset: {x: 0, y: -10, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   useBounds: 1
   minX: 0
   maxX: 100
   minY: 0
-  maxY: 10
+  maxY: 100
 --- !u!114 &354069258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba13aa32c4e8a8c45a0201b9c4111bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageBuilder
+  movingPlatformPrefab: {fileID: 3290373316247372272, guid: 8567b796ab5621843a16040744984447, type: 3}
   blockSize: 1.2
   stageOffset: {x: -5, y: -3}
   blockPrefab: {fileID: 5617935534511430335, guid: 393c2381a3d6faa408747bca28706f35, type: 3}
@@ -764,6 +765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144220227c1268c4b9d555a4188bbce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  maxJumpCount: 3
+  stompBounceForce: 8
   moveSpeed: 5
   jumpForce: 10
   groundCheck: {fileID: 0}

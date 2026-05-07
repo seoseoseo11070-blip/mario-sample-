@@ -5,6 +5,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(BoxCollider2D))]
 public class PlayerController : MonoBehaviour
 {
+
+    [Header("ダブルジャンプ設定")]
+    [SerializeField]
+    private int maxJumpCount = 2;
+
+    private int currentJumpCount = 0;
+
     [Header("踏みつけ設定")]
     [SerializeField]
 
@@ -64,17 +71,21 @@ public class PlayerController : MonoBehaviour
 
     private void CheckGround()
     {
+
+        bool wasGrounded = isGrounded;
+
         if (groundCheck != null)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         }
         else
         {
-            isGrounded = Physics2D.OverlapCircle(
-                transform.position + Vector3.down * 0.5f,
-                groundCheckRadius,
-                groundLayer
-            );
+            isGrounded = Physics2D.OverlapCircle(transform.position + Vector3.down * 0.5f, groundCheckRadius, groundLayer);
+        }
+
+        if (!wasGrounded && isGrounded)
+        {
+            currentJumpCount = 0;
         }
     }
 
@@ -108,9 +119,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Keyboard.current != null && Keyboard.current.upArrowKey.wasPressedThisFrame && isGrounded)
+        if (Keyboard.current != null && Keyboard.current.upArrowKey.wasPressedThisFrame && currentJumpCount < maxJumpCount)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            currentJumpCount++;
         }
     }
 
@@ -173,5 +185,26 @@ public class PlayerController : MonoBehaviour
         Vector3 checkPos = groundCheck != null ? groundCheck.position : transform.position + Vector3.down * 0.5f;
         Gizmos.DrawWireSphere(checkPos, groundCheckRadius);
     }
+
+
+    // private void CheckGround()
+    // {
+    //     bool wasGrounded = isGrounded;
+
+    //     if (groundCheck != null)
+    //     {
+    //         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    //     }
+    //     else
+    //     {
+    //         isGrounded = Physics2D.OverlapCircle(transform.position + Vector3.down * 0.5f, groundCheckRadius, groundLayer);
+    //     }
+
+    //     if (!wasGrounded && isGrounded)
+    //     {
+    //         currentJumpCount = 0;
+    //     }
+
+    // }
 
 }
