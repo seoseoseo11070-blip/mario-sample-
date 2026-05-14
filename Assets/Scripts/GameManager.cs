@@ -1,3 +1,4 @@
+using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,21 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+
+    [Header("スコア設定")]
+    [SerializeField]
+    private int scorrPerItem = 100;
+    [SerializeField]
+    private int scorePerStomp = 200;
+    [SerializeField]
+    private int timeBonus = 10;
+    [Header("タイマー設定")]
+    [SerializeField]
+    private float timeLimit = 60f;
+
+    private int score = 0;
+    private float remainingTime;
+
     public static GameManager Instance { get; private set; }
 
     public enum GameState
@@ -50,6 +66,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (CurrentState == GameState.Playing)
+        {
+            remainingTime -= Time.deltaTime;
+            if (remainingTime <= 0f)
+            {
+                remainingTime = 0f;
+                GameOver();
+                return;
+            }
+        }
         // タイトル、ゲームオーバー、ゲームクリア画面でスペースキー入力を処理
         if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
@@ -96,6 +122,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         itemCount = 0;
+        score = 0;
+        remainingTime = timeLimit;
         CurrentState = GameState.Playing;
         SceneManager.LoadScene("GameScene");
     }
@@ -134,11 +162,14 @@ public class GameManager : MonoBehaviour
     public void CollectItem()
     {
         itemCount++;
-        Debug.Log("アイテム取得: " + itemCount + " / " + requiredItemCount);
+        score += scorrPerItem;
+        Debug.Log("スコア: " + score + "アイテム取得: " + itemCount + " / " + requiredItemCount);
 
         // クリア条件を達成したらゲームクリア
         if (itemCount >= requiredItemCount)
         {
+            int bonus = Mathf.CeilToInt(remainingTime) * timeBonus;
+            score += bonus;
             GameClear();
         }
     }
@@ -157,5 +188,17 @@ public class GameManager : MonoBehaviour
     public int GetRequiredItemCount()
     {
         return requiredItemCount;
+    }
+    public void AddScore(int points)
+    {
+        score += points;
+    }
+    public int GetScore()
+    {
+        return score;
+    }
+    public float GetRemainingTime()
+    {
+        return remainingTime;
     }
 }

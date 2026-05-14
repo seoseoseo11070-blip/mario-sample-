@@ -306,6 +306,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1863dfd04c985f4498085e8cdda525b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  scorrPerItem: 100
+  scorePerStomp: 200
+  timeBonus: 10
+  timeLimit: 60
   requiredItemCount: 3
 --- !u!4 &726704049
 Transform:
@@ -371,6 +375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f8bf7c2e465a6740b3d7b723ec1e79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
+  scoreText: {fileID: 0}
+  timerText: {fileID: 0}
   itemCountText: {fileID: 2095662899}
 --- !u!114 &882813568
 MonoBehaviour:
