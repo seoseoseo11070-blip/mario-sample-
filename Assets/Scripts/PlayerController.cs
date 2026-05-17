@@ -122,6 +122,10 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current != null && Keyboard.current.upArrowKey.wasPressedThisFrame && currentJumpCount < maxJumpCount)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE("jump");
+            }
             currentJumpCount++;
         }
     }

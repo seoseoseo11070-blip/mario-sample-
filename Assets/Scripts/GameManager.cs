@@ -114,6 +114,10 @@ public class GameManager : MonoBehaviour
                 CurrentState = GameState.GameClear;
                 break;
         }
+        if (sceneName == "TitleScene" && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBGM("title");
+        }
     }
 
     /// <summary>
@@ -125,6 +129,10 @@ public class GameManager : MonoBehaviour
         score = 0;
         remainingTime = timeLimit;
         CurrentState = GameState.Playing;
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBGM("game");
+        }
         SceneManager.LoadScene("GameScene");
     }
 
@@ -144,6 +152,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         CurrentState = GameState.GameOver;
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlaySE("gameover");
+        }
         SceneManager.LoadScene("GameOverScene");
     }
 
@@ -153,6 +167,11 @@ public class GameManager : MonoBehaviour
     public void GameClear()
     {
         CurrentState = GameState.GameClear;
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlaySE("clear");
+        }
         SceneManager.LoadScene("GameClearScene");
     }
 
@@ -165,6 +184,10 @@ public class GameManager : MonoBehaviour
         score += scorrPerItem;
         Debug.Log("スコア: " + score + "アイテム取得: " + itemCount + " / " + requiredItemCount);
 
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE("item");
+        }
         // クリア条件を達成したらゲームクリア
         if (itemCount >= requiredItemCount)
         {
