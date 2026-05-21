@@ -141,6 +141,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ReturnToTitle()
     {
+
+        SoundManager.Instance.PlayBGM("title");
         itemCount = 0;
         CurrentState = GameState.Title;
         SceneManager.LoadScene("TitleScene");

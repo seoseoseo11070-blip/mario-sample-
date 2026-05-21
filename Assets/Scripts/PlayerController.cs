@@ -155,6 +155,8 @@ public class PlayerController : MonoBehaviour
                 if (enemy != null)
                 {
                     enemy.OnStomped();
+                    // 
+                    SoundManager.Instance.PlaySE("stomp");
                 }
 
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, stompBounceForce);

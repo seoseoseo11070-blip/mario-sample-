@@ -59,6 +59,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(string bgmName)
     {
+
         AudioClip clip = null;
 
         switch (bgmName)
@@ -69,6 +70,12 @@ public class SoundManager : MonoBehaviour
             case "game":
                 clip = bgmGame;
                 break;
+        }
+
+        if (clip == null)
+        {
+            StopBGM();
+            return;
         }
 
         if (clip != null && bgmSource.clip != clip)
